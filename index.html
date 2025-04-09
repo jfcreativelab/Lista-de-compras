@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lista de Compras Premium</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1><i class="fas fa-shopping-basket"></i> Lista de Compras</h1>
+      <div class="controls">
+        <button id="themeBtn" class="btn">
+          <i class="fas fa-moon"></i> Tema
+        </button>
+        <button id="exportBtn" class="btn">
+          <i class="fas fa-file-export"></i> Exportar
+        </button>
+      </div>
+    </header>
+
+    <div class="form-container">
+      <div class="form-group">
+        <input type="text" id="itemName" placeholder="Nome do item" autofocus>
+        <input type="number" id="itemQty" placeholder="Qtd." min="1">
+        <input type="text" id="itemPrice" placeholder="Preço">
+        <button class="btn-add" onclick="addItem()">
+          <i class="fas fa-plus"></i> Add
+        </button>
+      </div>
+    </div>
+
+    <div class="list-container" id="listContainer">
+    </div>
+
+    <div class="total-container">
+      <span>Total:</span>
+      <span class="total-amount" id="totalAmount">R$ 0,00</span>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
