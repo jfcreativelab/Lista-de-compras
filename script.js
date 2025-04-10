@@ -10,9 +10,9 @@ const itemCategorySelect = document.getElementById('itemCategory');
 const filterCategorySelect = document.getElementById('filterCategory');
 const filterStatusSelect = document.getElementById('filterStatus');
 const totalAmount = document.getElementById('totalAmount');
-const themeBtn = document.getElementById('themeBtn');
-const exportBtn = document.getElementById('exportBtn');
-const chartBtn = document.getElementById('chartBtn');
+const themeBtn = document.getElementById('toggleTema');  // Note: o id no HTML para o botão de tema é "toggleTema"
+const btnExportar = document.getElementById('btnExportar');
+const btnGrafico = document.getElementById('btnGrafico');
 const chartModal = document.getElementById('chartModal');
 const closeModal = document.querySelector('.close');
 const expenseChart = document.getElementById('expenseChart');
@@ -22,13 +22,13 @@ const categoryColors = {
   hortifruti: '#4cc9f0',
   padaria: '#f8961e',
   carnes: '#f72585',
-  laticinios: '#f0932b',      // nova cor para laticínios
+  laticinios: '#f0932b',
   bebidas: '#4361ee',
-  mercearia: '#a29bfe',       // cor para mercearia
-  congelados: '#00cec9',      // cor para congelados
+  mercearia: '#a29bfe',
+  congelados: '#00cec9',
   limpeza: '#3f37c9',
-  higiene: '#fd79a8',         // cor para higiene
-  pets: '#55efc4',            // cor para produtos pet
+  higiene: '#fd79a8',
+  pets: '#55efc4',
   outros: '#6c757d'
 };
 
@@ -52,16 +52,19 @@ document.addEventListener('DOMContentLoaded', () => {
   loadItems();
   renderList();
   
-document.getElementById('compareBtn').addEventListener('click', fetchPriceComparison);
-  // Event listeners
+  // Se existir, adiciona listener para o botão de comparação
+  const compareBtn = document.getElementById('compareBtn');
+  if(compareBtn){
+    compareBtn.addEventListener('click', fetchPriceComparison);
+  }
+  
+  // Event listeners para os campos de entrada
   itemNameInput.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') addItem();
   });
-  
   itemQtyInput.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') addItem();
   });
-  
   itemPriceInput.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') addItem();
   });
@@ -70,8 +73,9 @@ document.getElementById('compareBtn').addEventListener('click', fetchPriceCompar
   filterStatusSelect.addEventListener('change', renderList);
   
   themeBtn.addEventListener('click', toggleTheme);
-  exportBtn.addEventListener('click', exportList);
-  chartBtn.addEventListener('click', showChart);
+  btnExportar.addEventListener('click', exportList);
+  btnGrafico.addEventListener('click', showChart);
+  
   closeModal.addEventListener('click', () => {
     chartModal.style.display = 'none';
   });
@@ -80,6 +84,28 @@ document.getElementById('compareBtn').addEventListener('click', fetchPriceCompar
   window.addEventListener('click', (e) => {
     if (e.target === chartModal) {
       chartModal.style.display = 'none';
+    }
+  });
+  
+  // Painel lateral de pesquisa
+  const abrirPesquisaBtn = document.getElementById("abrirPesquisa");
+  const painelPesquisa = document.getElementById("painelPesquisa");
+  const fecharPesquisaBtn = document.getElementById("fecharPainel");
+  const campoPesquisa = document.getElementById("campoPesquisa");
+  const btnBuscar = document.getElementById("pesquisarBtn");
+
+  abrirPesquisaBtn.addEventListener("click", () => {
+    painelPesquisa.classList.add("ativo");
+    campoPesquisa.focus();
+  });
+  fecharPesquisaBtn.addEventListener("click", () => {
+    painelPesquisa.classList.remove("ativo");
+  });
+  btnBuscar.addEventListener("click", () => {
+    const termo = campoPesquisa.value.trim();
+    if (termo) {
+      const url = `https://www.google.com/search?tbm=shop&q=${encodeURIComponent(termo)}`;
+      window.open(url, '_blank');
     }
   });
 });
@@ -91,13 +117,11 @@ function addItem() {
   const price = parseFloat(itemPriceInput.value.replace(',', '.'));
   const category = itemCategorySelect.value;
   
-  // Validação
   if (!name || isNaN(qty) || isNaN(price) || qty <= 0 || price <= 0) {
     alert('Por favor, preencha todos os campos corretamente!');
     return;
   }
   
-  // Adicionar à lista
   shoppingList.push({
     id: Date.now(),
     name: name.charAt(0).toUpperCase() + name.slice(1),
@@ -109,7 +133,6 @@ function addItem() {
     precoOriginal: price
   });
   
-  // Limpar e atualizar
   itemNameInput.value = '';
   itemQtyInput.value = '';
   itemPriceInput.value = '';
@@ -124,18 +147,14 @@ function renderList() {
   const categoryFilter = filterCategorySelect.value;
   const statusFilter = filterStatusSelect.value;
   
-  // Filtrar itens
   let filteredList = shoppingList.filter(item => {
-    const categoryMatch = categoryFilter === 'todos' || item.category === categoryFilter;
-    const statusMatch = 
-      statusFilter === 'todos' || 
-      (statusFilter === 'comprados' && item.comprado) || 
-      (statusFilter === 'pendentes' && !item.comprado);
-    
+    const categoryMatch = (categoryFilter === 'todos' || item.category === categoryFilter);
+    const statusMatch = (statusFilter === 'todos' || 
+                          (statusFilter === 'comprados' && item.comprado) || 
+                          (statusFilter === 'pendentes' && !item.comprado));
     return categoryMatch && statusMatch;
   });
   
-  // Atualizar DOM
   if (filteredList.length === 0) {
     listContainer.innerHTML = `
       <div class="empty-state">
@@ -157,17 +176,13 @@ function renderList() {
     
     html += `
       <div class="item-card ${item.comprado ? 'comprado' : ''}" data-id="${item.id}">
-        <input type="checkbox" class="item-checkbox" ${item.comprado ? 'checked' : ''} 
-          onchange="toggleComprado(${item.id}, this.checked)">
-        
+        <input type="checkbox" class="item-checkbox" ${item.comprado ? 'checked' : ''} onchange="toggleComprado(${item.id}, this.checked)">
         <div class="item-category category-${item.category}">
           <i class="${categoryIcons[item.category] || 'fas fa-shopping-basket'}"></i>
         </div>
-        
         <div class="item-name">${item.name}</div>
         <div class="item-qty">${item.qty}x</div>
         <div class="item-price">R$ ${item.price.toFixed(2).replace('.', ',')}</div>
-        
         <div class="item-actions">
           <button class="btn-action btn-edit" onclick="editItem(${item.id})">
             <i class="fas fa-edit"></i>
@@ -176,7 +191,6 @@ function renderList() {
             <i class="fas fa-trash-alt"></i>
           </button>
         </div>
-        
         ${item.emPromocao ? '<span class="promo-badge">PROMO</span>' : ''}
       </div>
     `;
@@ -245,12 +259,11 @@ function showChart() {
     categories[item.category] += item.qty * item.price;
   });
   
-  // Preparar dados para o gráfico
   const labels = Object.keys(categories);
   const data = Object.values(categories);
   const backgroundColors = labels.map(cat => categoryColors[cat] || '#6c757d');
   
-  // Criar ou atualizar gráfico
+  // Se já existe um gráfico, atualiza
   if (window.expenseChartInstance) {
     window.expenseChartInstance.data.labels = labels;
     window.expenseChartInstance.data.datasets[0].data = data;
@@ -259,28 +272,33 @@ function showChart() {
   } else {
     const ctx = expenseChart.getContext('2d');
     window.expenseChartInstance = new Chart(ctx, {
-      type: 'pie',
+      type: 'bar',
       data: {
         labels: labels,
         datasets: [{
+          label: 'Total por Categoria (R$)',
           data: data,
-          backgroundColor: backgroundColors,
-          borderWidth: 1
+          backgroundColor: backgroundColors
         }]
       },
       options: {
         responsive: true,
         plugins: {
-          legend: {
-            position: 'right',
-          },
+          legend: { display: false },
           tooltip: {
             callbacks: {
               label: function(context) {
-                const value = context.raw;
-                const total = context.dataset.data.reduce((a, b) => a + b, 0);
-                const percentage = Math.round((value / total) * 100);
-                return `${context.label}: R$ ${value.toFixed(2)} (${percentage}%)`;
+                return `R$ ${context.raw.toFixed(2).replace('.', ',')}`;
+              }
+            }
+          }
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: {
+              callback: function(value) {
+                return `R$ ${value.toFixed(2).replace('.', ',')}`;
               }
             }
           }
@@ -311,7 +329,6 @@ function exportList() {
     itemsByCategory[item.category].push(item);
   });
   
-  // Gerar texto
   Object.keys(itemsByCategory).forEach(category => {
     text += `=== ${category.toUpperCase()} ===\n`;
     
@@ -328,7 +345,6 @@ function exportList() {
   text += `💰 TOTAL: R$ ${total.toFixed(2).replace('.', ',')}\n`;
   text += `\n📅 Gerado em: ${new Date().toLocaleDateString()} às ${new Date().toLocaleTimeString()}\n`;
   
-  // Criar arquivo
   const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
@@ -339,14 +355,14 @@ function exportList() {
   document.body.removeChild(a);
   URL.revokeObjectURL(url);
   
-  // Feedback visual
-  exportBtn.innerHTML = '<i class="fas fa-check"></i> Exportado!';
+  // Atualizar botão de exportar (usar btnExportar)
+  btnExportar.innerHTML = '<i class="fas fa-check"></i> Exportado!';
   setTimeout(() => {
-    exportBtn.innerHTML = '<i class="fas fa-file-export"></i> Exportar';
+    btnExportar.innerHTML = '<i class="fas fa-file-export"></i> Exportar';
   }, 2000);
 }
 
-// Tema escuro/claro
+// Alternar tema claro/escuro
 function toggleTheme() {
   document.body.classList.toggle('dark-mode');
   const isDark = document.body.classList.contains('dark-mode');
@@ -354,45 +370,20 @@ function toggleTheme() {
   localStorage.setItem('darkMode', isDark);
 }
 
-// Salvar no localStorage
+// Salvar itens no localStorage
 function saveItems() {
   localStorage.setItem('shoppingList', JSON.stringify(shoppingList));
 }
 
-// Carregar do localStorage
+// Carregar itens do localStorage
 function loadItems() {
   const savedList = localStorage.getItem('shoppingList');
   if (savedList) {
     shoppingList = JSON.parse(savedList);
   }
   
-  // Verificar tema salvo
   if (localStorage.getItem('darkMode') === 'true') {
     document.body.classList.add('dark-mode');
     themeBtn.innerHTML = '<i class="fas fa-sun"></i> Claro';
   }
 }
-document.addEventListener("DOMContentLoaded", () => {
-  const abrirBtn = document.getElementById("abrirPesquisa");
-  const painel = document.getElementById("painelPesquisa");
-  const fecharBtn = document.getElementById("fecharPainel");
-  const campoPesquisa = document.getElementById("campoPesquisa");
-  const btnBuscar = document.getElementById("pesquisarBtn");
-
-  abrirBtn.addEventListener("click", () => {
-    painel.classList.add("ativo");
-    campoPesquisa.focus();
-  });
-
-  fecharBtn.addEventListener("click", () => {
-    painel.classList.remove("ativo");
-  });
-
-  btnBuscar.addEventListener("click", () => {
-    const termo = campoPesquisa.value.trim();
-    if (termo) {
-      const url = `https://www.google.com/search?tbm=shop&q=${encodeURIComponent(termo)}`;
-      window.open(url, '_blank');
-    }
-  });
-});
