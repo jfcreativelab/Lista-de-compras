@@ -8,16 +8,21 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <button id="abrirPesquisa" class="botao-pesquisa">🔍 Pesquisar Preços</button>
+
+  <div id="painelPesquisa" class="painel-lateral">
+    <button id="fecharPainel" class="fechar-painel">✖</button>
+    <h2>Pesquisar Produto</h2>
+    <input type="text" id="campoPesquisa" placeholder="Digite o nome do produto..." />
+    <button id="pesquisarBtn">Buscar</button>
+  </div>
   <div class="container">
     <header>
-      <h1><i class="fas fa-shopping-basket"></i> Lista de Compras</h1>
+      <h1><i class="fas fa-shopping-basket"></i> Lista Inteligente</h1>
       <div class="controls">
-        <button id="themeBtn" class="btn">
-          <i class="fas fa-moon"></i> Tema
-        </button>
-        <button id="exportBtn" class="btn">
-          <i class="fas fa-file-export"></i> Exportar
-        </button>
+        <button id="themeBtn"><i class="fas fa-moon"></i> Tema</button>
+        <button id="chartBtn"><i class="fas fa-chart-pie"></i> Gráfico</button>
+        <button id="exportBtn"><i class="fas fa-file-export"></i> Exportar</button>
       </div>
     </header>
 
@@ -25,14 +30,51 @@
       <div class="form-group">
         <input type="text" id="itemName" placeholder="Nome do item" autofocus>
         <input type="number" id="itemQty" placeholder="Qtd." min="1">
-        <input type="text" id="itemPrice" placeholder="Preço">
+        <input type="text" id="itemPrice" placeholder="Preço R$">
+        <select id="itemCategory">
+          <option value="hortifruti">Hortifruti & Legumes</option>
+          <option value="padaria">Padaria & Confeitaria</option>
+          <option value="carnes">Carnes & Proteínas</option>
+          <option value="laticinios">Laticínios & Ovos</option>
+          <option value="bebidas">Bebidas</option>
+          <option value="mercearia">Mercearia & Básicos</option>
+          <option value="congelados">Congelados</option>
+          <option value="limpeza">Limpeza & Utilidades</option>
+          <option value="higiene">Higiene & Cuidados Pessoais</option>
+          <option value="pets">Pets</option>
+          <option value="outros">Outros</option>
+        </select>
         <button class="btn-add" onclick="addItem()">
           <i class="fas fa-plus"></i> Add
         </button>
       </div>
     </div>
 
+    <div class="filter-container">
+      <div class="filter-group">
+        <select id="filterCategory">
+          <option value="hortifruti">Hortifruti & Legumes</option>
+          <option value="padaria">Padaria & Confeitaria</option>
+          <option value="carnes">Carnes & Proteínas</option>
+          <option value="laticinios">Laticínios & Ovos</option>
+          <option value="bebidas">Bebidas</option>
+          <option value="mercearia">Mercearia & Básicos</option>
+          <option value="congelados">Congelados</option>
+          <option value="limpeza">Limpeza & Utilidades</option>
+          <option value="higiene">Higiene & Cuidados Pessoais</option>
+          <option value="pets">Pets</option>
+          <option value="outros">Outros</option>
+        </select>
+        <select id="filterStatus">
+          <option value="todos">Todos os itens</option>
+          <option value="pendentes">A comprar</option>
+          <option value="comprados">Comprados</option>
+        </select>
+      </div>
+    </div>
+
     <div class="list-container" id="listContainer">
+      <!-- Itens serão renderizados aqui -->
     </div>
 
     <div class="total-container">
@@ -41,6 +83,16 @@
     </div>
   </div>
 
+  <!-- Modal do Gráfico -->
+  <div id="chartModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Seus Gastos por Categoria</h2>
+      <canvas id="expenseChart"></canvas>
+    </div>
+    
+    
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
