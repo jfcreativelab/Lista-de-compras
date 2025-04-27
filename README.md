@@ -63,16 +63,6 @@ ListaInteligenteJF/
 
 ---
 
-## 📷 Imagens do Projeto
-
-| Dark Mode | Light Mode |
-|:---------:|:----------:|
-| ![Dark Mode Screenshot](#) | ![Light Mode Screenshot](#) |
-
-*(Adicione screenshots do seu projeto aqui)*
-
----
-
 ## 🚀 Aprendizados e Práticas
 
 - Manipulação avançada de DOM.
