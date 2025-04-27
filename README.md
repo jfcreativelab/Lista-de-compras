@@ -1,70 +1,48 @@
 🛒 Lista Inteligente JF
-Sistema de gerenciamento de compras com funcionalidades inteligentes.
+Gerencie suas compras de forma inteligente e prática.
 
-Deploy Online: 🔗 Clique para acessar o app
+🔗 Deploy Online
+🔗 Clique aqui para acessar o projeto
 
-✨ Funcionalidades
-Adicionar produtos com nome, preço, categoria e quantidade.
+📜 Sobre o Projeto
+A Lista Inteligente JF é uma aplicação desenvolvida para facilitar o controle de compras, permitindo o cadastro de itens, categorias, preços e quantidades, com suporte a tema claro/escuro e gráficos dinâmicos.
 
-Filtrar e pesquisar produtos por categoria e nome.
+Funcionalidades:
 
-Exportar a lista de compras em formato de texto.
+Cadastro e organização de itens.
 
-Alternar entre tema claro e escuro.
+Filtros e buscas por categoria.
 
-Gráficos de visualização de gastos por categoria.
+Exportação da lista.
+
+Gráficos de visualização de gastos.
+
+Alternância entre modos Claro e Escuro.
 
 🚀 Tecnologias Utilizadas
+<div style="display: flex; flex-wrap: wrap; gap: 10px;">
 
-🗂️ Estrutura do Projeto
-scss
+
+
+
+</div>
+🗂️ Estrutura de Arquivos
+bash
 Copiar
 Editar
-📂 assets
-  └── Ícones e imagens
+📂 assets/          # Ícones e imagens
+📂 css/             # Estilizações
+📂 js/              # Scripts de interação
+📄 index.html       # Página principal
+🖼️ Demonstrações
 
-📂 css
-  └── styles.css (estilos do projeto)
+Dark Mode	Light Mode
+🎯 Objetivos Técnicos
+Boas práticas de responsividade.
 
-📂 js
-  └── script.js (lógica de funcionalidades)
+Organização de projeto em HTML/CSS/JS puro.
 
-📄 index.html (página principal)
-🎯 Objetivo do Projeto
-Desenvolver uma solução prática para organização de compras, integrando:
+Uso de Chart.js para visualização de dados.
 
-Boas práticas de design responsivo.
+Experiência fluida com LocalStorage e modo escuro.
 
-Interatividade com JavaScript puro.
-
-Visualização de dados com Chart.js.
-
-📸 Imagens do Projeto
-
-Light Mode	Dark Mode
-🧠 Aprendizados
-Manipulação de DOM avançada.
-
-LocalStorage para salvar dados localmente.
-
-Design de interface amigável.
-
-Gráficos de dados em tempo real.
-
-📬 Contato
-
-⚡ Contribuindo
-Contribuições são muito bem-vindas!
-Para contribuir:
-
-Faça um fork do projeto.
-
-Crie uma branch: git checkout -b minha-melhoria.
-
-Commit suas alterações: git commit -m 'Minha melhoria'.
-
-Push na branch: git push origin minha-melhoria.
-
-Abra um Pull Request 🚀.
-
-🔥 DICA EXTRA
