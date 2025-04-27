@@ -1,48 +1,62 @@
 🛒 Lista Inteligente JF
-Gerencie suas compras de forma inteligente e prática.
+Sistema de gerenciamento de compras com funcionalidades modernas e visualização interativa de dados.
 
-🔗 Deploy Online
-🔗 Clique aqui para acessar o projeto
-
-📜 Sobre o Projeto
-A Lista Inteligente JF é uma aplicação desenvolvida para facilitar o controle de compras, permitindo o cadastro de itens, categorias, preços e quantidades, com suporte a tema claro/escuro e gráficos dinâmicos.
-
-Funcionalidades:
-
-Cadastro e organização de itens.
-
-Filtros e buscas por categoria.
-
-Exportação da lista.
-
-Gráficos de visualização de gastos.
-
-Alternância entre modos Claro e Escuro.
-
-🚀 Tecnologias Utilizadas
-<div style="display: flex; flex-wrap: wrap; gap: 10px;">
-
-
-
+<div align="center">
 
 </div>
-🗂️ Estrutura de Arquivos
+🔗 Deploy Online
+🔗 Acessar Aplicação
+
+📜 Sobre o Projeto
+A Lista Inteligente JF é uma aplicação feita para facilitar o gerenciamento de listas de compras, oferecendo funcionalidades práticas como:
+
+➕ Cadastro de produtos (nome, preço, categoria, quantidade)
+
+🔎 Filtro por categoria e pesquisa por nome
+
+💾 Exportação de lista para texto
+
+🌗 Alternância entre modo claro e modo escuro
+
+📊 Gráficos interativos de gastos com Chart.js
+
+📦 Armazenamento local com LocalStorage
+
+🛠️ Tecnologias Utilizadas
+
+Tecnologia	Descrição
+HTML5	Estrutura do projeto
+CSS3	Estilização responsiva
+JavaScript	Funcionalidades dinâmicas
+Chart.js	Visualização de dados em gráficos
+📂 Estrutura do Projeto
 bash
 Copiar
 Editar
-📂 assets/          # Ícones e imagens
-📂 css/             # Estilizações
-📂 js/              # Scripts de interação
-📄 index.html       # Página principal
-🖼️ Demonstrações
+📦 ListaInteligenteJF/
+ ┣ 📂 assets/       # Ícones e imagens
+ ┣ 📂 css/          # Estilos (styles.css)
+ ┣ 📂 js/           # Scripts JS (script.js)
+ ┣ 📄 index.html    # Página principal
+🎯 Funcionalidades
+✅ Tema Claro/Escuro
+
+✅ Gráficos dinâmicos de gastos
+
+✅ Filtros inteligentes por categoria
+
+✅ Exportação da lista
+
+✅ Layout moderno e responsivo
+
+📷 Imagens do Projeto
 
 Dark Mode	Light Mode
-🎯 Objetivos Técnicos
+🚀 Aprendizados e Práticas
+Manipulação avançada de DOM.
+
 Boas práticas de responsividade.
 
-Organização de projeto em HTML/CSS/JS puro.
+Uso de Chart.js para renderização gráfica.
 
-Uso de Chart.js para visualização de dados.
-
-Experiência fluida com LocalStorage e modo escuro.
-
+Gerenciamento de estado com LocalStorage.
